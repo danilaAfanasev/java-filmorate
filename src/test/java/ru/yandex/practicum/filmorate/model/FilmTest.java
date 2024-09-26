@@ -35,8 +35,7 @@ class FilmTest {
     @DisplayName("Создать фильм с длинным описанием")
     void createFilmWithTooLongDescription() {
         String description = "Описание".repeat(200);
-        Film film = Film.builder().name("Фильм").description(description).
-                releaseDate(LocalDate.now().minusYears(20)).duration(200).build();
+        Film film = Film.builder().name("Фильм").description(description).releaseDate(LocalDate.now().minusYears(20)).duration(200).build();
         ResponseEntity<Film> response = restTemplate.postForEntity("/films", film, Film.class);
 
         assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
@@ -73,8 +72,7 @@ class FilmTest {
         Film film = new Film(100, "Фильм", "Описание", LocalDate.now().minusYears(30), 100);
         restTemplate.postForLocation("/films", film);
         String description = "Описание".repeat(200);
-        Film film2 = Film.builder().name("Фильм").description(description).
-                releaseDate(LocalDate.now().minusYears(20)).duration(100).build();
+        Film film2 = Film.builder().name("Фильм").description(description).releaseDate(LocalDate.now().minusYears(20)).duration(100).build();
         HttpEntity<Film> entity = new HttpEntity<>(film2);
         ResponseEntity<Film> response2 = restTemplate.exchange("/films", HttpMethod.PUT, entity, Film.class);
 
