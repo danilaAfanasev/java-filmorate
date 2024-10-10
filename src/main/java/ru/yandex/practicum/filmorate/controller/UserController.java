@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController extends Controller<User> {
 
-    UserService userService;
+    protected UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
