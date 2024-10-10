@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
@@ -15,7 +17,9 @@ class UserControllerTest {
 
     @BeforeEach
     public void start() {
-        userController = new UserController();
+        InMemoryUserStorage userStorage = new InMemoryUserStorage();
+        UserService userService = new UserService(userStorage);
+        userController = new UserController(userService);
     }
 
     @Test
@@ -26,7 +30,7 @@ class UserControllerTest {
         User user = new User(id, "danila@yandex.ru", login, null, LocalDate.now().minusYears(50));
         userController.create(user);
 
-        assertEquals(login, userController.entities.get(id).getName());
+        assertEquals(login, userController.getUserById(id).getName());
     }
 
     @Test
@@ -39,6 +43,6 @@ class UserControllerTest {
         User user = new User(id, "danila@yandex.ru", login, null, LocalDate.now().minusYears(50));
         userController.update(user);
 
-        assertEquals(login, userController.entities.get(id).getName());
+        assertEquals(login, userController.getUserById(id).getName());
     }
 }
