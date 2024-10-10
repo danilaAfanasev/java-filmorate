@@ -47,10 +47,7 @@ public class UserService extends AbstractService<User> {
             throw new NotFoundException("Объекта нет в списке");
         }
         User user = getById(userId);
-        return user.getFriends().stream().
-                map(storage::getById).
-                sorted(Comparator.comparingInt(User::getId)).
-                collect(Collectors.toList());
+        return user.getFriends().stream().map(storage::getById).sorted(Comparator.comparingInt(User::getId)).collect(Collectors.toList());
     }
 
     public List<User> getCommonFriends(Integer user1Id, Integer user2Id) {
@@ -60,8 +57,6 @@ public class UserService extends AbstractService<User> {
         }
         List<User> userSet1 = getFriends(user1Id);
         List<User> userSet2 = getFriends(user2Id);
-        return userSet1.stream().filter(userSet2::contains).
-                sorted(Comparator.comparingInt(User::getId)).
-                collect(Collectors.toList());
+        return userSet1.stream().filter(userSet2::contains).sorted(Comparator.comparingInt(User::getId)).collect(Collectors.toList());
     }
 }
