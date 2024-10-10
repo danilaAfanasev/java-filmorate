@@ -11,12 +11,16 @@ import jakarta.validation.constraints.Size;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Film extends Model {
+
+    private final Set<Integer> likes = new HashSet<>();
 
     @NotBlank
     private String name;
@@ -37,5 +41,13 @@ public class Film extends Model {
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+    }
+
+    public void addLike(Integer id) {
+        likes.add(id);
+    }
+
+    public void deleteLike(Integer id) {
+        likes.remove(id);
     }
 }
