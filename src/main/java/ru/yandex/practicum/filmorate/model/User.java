@@ -11,13 +11,15 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends Model {
+    private final Set<Integer> friends = new HashSet<>();
 
     @NotBlank
     @Email
@@ -37,5 +39,13 @@ public class User extends Model {
         this.login = login;
         this.name = name;
         this.birthday = birthday;
+    }
+
+    public void addFriend(Integer id) {
+        friends.add(id);
+    }
+
+    public void deleteFriend(Integer id) {
+        friends.remove(id);
     }
 }
