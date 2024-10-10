@@ -13,7 +13,7 @@ import java.util.Collection;
 @Slf4j
 public abstract class Controller<T extends Model> {
 
-    AbstractService service;
+    protected AbstractService service;
 
     @Autowired
     public Controller(AbstractService service) {
