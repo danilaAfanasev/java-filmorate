@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class FilmService extends AbstractService<Film> {
     private static final LocalDate DATE_LIMIT = LocalDate.from(LocalDateTime.of(1895, 12, 28, 0, 0));
 
-    final private InMemoryUserStorage userStorage;
+    public InMemoryUserStorage userStorage;
 
     @Autowired
     public FilmService(InMemoryFilmStorage filmStorage, InMemoryUserStorage userStorage) {
