@@ -1,7 +1,7 @@
 # java-filmorate
 Template repository for Filmorate project.
 
-![diagram](diagram.png)  
+![diagramm](diagramm.png)  
 Примеры запросов:  
 1. Получение пользователя с id=1:  
    SELECT*  
