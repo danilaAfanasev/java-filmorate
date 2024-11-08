@@ -168,10 +168,12 @@ public class FilmDbStorage implements FilmStorage {
                 + "WHERE film_genres.film_id IN (" + inSql + ") "
                 + "ORDER BY film_genres.genre_id";
         jdbcTemplate.query(sqlQuery, (rs) -> {
-            filmsTable.get(rs.getInt("film_id")).addGenre(new Genre(rs.getInt("genre_id"),
-                    rs.getString("genre_name")));
+            Film film = filmsTable.get(rs.getInt("film_id"));
+            if (film != null) {
+                film.addGenre(new Genre(rs.getInt("genre_id"), rs.getString("genre_name")));
+            }
         }, filmsTable.keySet().toArray());
-        return films;
+        return new ArrayList<>(filmsTable.values());
     }
 
     private Genre makeGenre(ResultSet rs, int id) throws SQLException {
