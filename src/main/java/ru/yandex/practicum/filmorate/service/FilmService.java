@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.NotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.storage.interfaces.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.interfaces.UserStorage;
 import java.time.LocalDate;
@@ -90,6 +91,9 @@ public class FilmService {
     }
 
     public List<Film> getPopular(Integer count) {
+        if (count > 100) {
+            throw new RuntimeException("Too many films requested");
+        }
         List<Film> result = new ArrayList<>(filmStorage.getPopular(count));
         log.info("Запрошенный список популярных фильмов");
         return result;
