@@ -1,25 +1,24 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Data;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.NoArgsConstructor;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Builder(toBuilder = true)
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class User extends Model {
+public class User {
+
     private final Set<Integer> friends = new HashSet<>();
+
+    private int id;
 
     @NotBlank
     @Email
@@ -27,19 +26,12 @@ public class User extends Model {
 
     @NotBlank
     private String login;
+
     private String name;
 
     @PastOrPresent
     @NotNull
     private LocalDate birthday;
-
-    public User(int id, String email, String login, String name, LocalDate birthday) {
-        super(id);
-        this.email = email;
-        this.login = login;
-        this.name = name;
-        this.birthday = birthday;
-    }
 
     public void addFriend(Integer id) {
         friends.add(id);
