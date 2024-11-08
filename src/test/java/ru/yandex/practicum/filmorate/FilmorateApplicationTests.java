@@ -78,7 +78,7 @@ class FilmorateApplicationTests {
 
 	@Test
 	@DisplayName("Найти фильм по Id")
-	void getFilmById(){
+	void getFilmById() {
 		Film film = Film.builder()
 				.id(1)
 				.name("Avatar")
