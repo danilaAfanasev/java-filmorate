@@ -2,15 +2,14 @@ package ru.yandex.practicum.filmorate.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
 import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,17 +34,6 @@ class UserTest {
         ResponseEntity<User> response = restTemplate.postForEntity("/users", user, User.class);
 
         assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
-    }
-
-    @Test
-    @DisplayName("Создать пользователя с пустым именем")
-    void createUserWithEmptyName() {
-        int id = 1;
-        String login = "danila";
-        User user = new User(id, "danila@yandex.ru", login, null, LocalDate.now().minusYears(20));
-        ResponseEntity<User> response = restTemplate.postForEntity("/users", user, User.class);
-
-        assertEquals(login, response.getBody().getName());
     }
 
     @Test

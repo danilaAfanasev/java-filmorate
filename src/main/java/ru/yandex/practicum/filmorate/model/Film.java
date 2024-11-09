@@ -1,26 +1,26 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Data;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.NoArgsConstructor;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@NoArgsConstructor
-public class Film extends Model {
+@Getter
+@Setter
+public class Film {
 
     private final Set<Integer> likes = new HashSet<>();
+
+    private int id;
 
     @NotBlank
     private String name;
@@ -35,13 +35,9 @@ public class Film extends Model {
     @PositiveOrZero
     private int duration;
 
-    public Film(int id, String name, String description, LocalDate releaseDate, int duration) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-    }
+    private Set<Genre> genres = new HashSet<>();
+
+    private RatingMpa mpa;
 
     public void addLike(Integer id) {
         likes.add(id);
@@ -49,5 +45,17 @@ public class Film extends Model {
 
     public void deleteLike(Integer id) {
         likes.remove(id);
+    }
+
+    public void addGenre(Genre genre) {
+        genres.add(genre);
+    }
+
+    public void removeAllGenres() {
+        genres.clear();
+    }
+
+    public void removeGenre(Genre genre) {
+        genres.remove(genre);
     }
 }
